@@ -1,0 +1,74 @@
+version: '3.2'
+services:
+    db:
+        build:
+            context: ./mariadb
+        volumes:
+            - type: bind
+              source: ${HOSTSRCPATH}/sample_app-docker/mariadb/sql
+              target: /docker-entrypoint-initdb.d
+            - type: volume
+              source: mariadb_data
+              target: /var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: PASSWORD
+            MYSQL_USER: dbmaster
+            MYSQL_PASSWORD: PASSWORD
+            TZ: "Asia/Tokyo"
+        ports:
+            - '3306:3306'
+    app:
+        build:
+            context: ./rails
+        volumes:
+            - type: bind
+              source: ${HOSTSRCPATH}/sample_app-docker/rails/src
+              target: /opt/app
+            - type: volume
+              source: bundle_data
+              target: /usr/local/bundle
+            - type: volume
+              source: public_data
+              target: /opt/app/public
+            - type: volume
+              source: tmp_data
+              target: /opt/app/tmp
+        command: bundle exec puma -C config/puma.rb
+        environment:
+            - "TZ=Asia/Tokyo"
+        ports:
+            - '3000:3000'
+        depends_on:
+            - db
+    web:
+        build:
+            context: ./nginx
+        volumes:
+            - type: volume
+              source: public_data
+              target: /opt/app/public
+            - type: volume
+              source: tmp_data
+              target: /opt/app/tmp
+        environment:
+            - "TZ=Asia/Tokyo"
+        depends_on:
+            - app
+        ports:
+            - '80:80'
+volumes:
+    bundle_data:
+        driver: local
+    mariadb_data:
+        driver: local
+    public_data:
+        driver: local
+    tmp_data:
+        driver: local
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+               - subnet: 192.168.10.0/24
