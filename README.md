@@ -21,7 +21,7 @@ Usage
 
 * `.env`
 ``` bash
-HOSTSRCPATH=c:/Users/foo/dev
+HOSTSRCPATH=c:/Users/foo/devel
 ```
 
 #### 2. Change the following if you want to change the Rails project name (Application Directory name).
@@ -104,7 +104,7 @@ $ docker-compose up
 #### 9. open another terminal window and execute `rake db:create` in app container.
 
 ``` bash
-$ cd ~/dev/sample_app-docker
+$ cd ~/devel/sample_app-docker
 $ docker-compose exec app rake db:create
 Created database 'sample_app_development'
 Created database 'sample_app_test'
