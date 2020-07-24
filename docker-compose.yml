@@ -23,16 +23,16 @@ services:
         volumes:
             - type: bind
               source: ${HOSTSRCPATH}/sample_app-docker/rails/src
-              target: /opt/app
+              target: /opt/sample_app
             - type: volume
               source: bundle_data
               target: /usr/local/bundle
             - type: volume
               source: public_data
-              target: /opt/app/public
+              target: /opt/sample_app/public
             - type: volume
               source: tmp_data
-              target: /opt/app/tmp
+              target: /opt/sample_app/tmp
         command: bundle exec puma -C config/puma.rb
         environment:
             - "TZ=Asia/Tokyo"
@@ -46,10 +46,10 @@ services:
         volumes:
             - type: volume
               source: public_data
-              target: /opt/app/public
+              target: /opt/sample_app/public
             - type: volume
               source: tmp_data
-              target: /opt/app/tmp
+              target: /opt/sample_app/tmp
         environment:
             - "TZ=Asia/Tokyo"
         depends_on:
