@@ -17,14 +17,14 @@ Requirement
 Usage
 =======================
 
-### 1. First, specify the absolute path of the parent directory of this git project(directory) in `.env` file
+#### 1. First, specify the absolute path of the parent directory of this git project(directory) in `.env` file
 
 * `.env`
 ``` bash
 HOSTSRCPATH=c:/Users/foo/dev
 ```
 
-### 2. Change the following if you want to change the Rails project name (Application Directory name).
+#### 2. Change the following if you want to change the Rails project name (Application Directory name).
 
 ```bash
 foo@localhost:sample_app-docker$ grep -R -e 'sample_app[^-]' *
@@ -37,7 +37,7 @@ nginx/nginx.conf:    server unix:///opt/sample_app/tmp/sockets/puma.sock;
 nginx/nginx.conf:    root /opt/sample_app/public;
 ```
 
-### 3. Change the DB username(`dbmaster`) and root password.
+#### 3. Change the DB username(`dbmaster`) and root password.
 
 * `mariadb/sql/00_init.sql`
 ``` bash
@@ -54,7 +54,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'dbmaster'@'%';
             :
 ```
 
-### 4. Run the following command for create a Rails project and update Gemfile and Gemfile.lock.
+#### 4. Run the following command for create a Rails project and update Gemfile and Gemfile.lock.
 
 ``` bash
 $ docker-compose run --rm app rails new . --force --no-deps  --database=mysql --skip-coffee --skip-turbolinks --skip-sprockets --webpack
@@ -62,7 +62,7 @@ $ docker-compose run --rm app rails new . --force --no-deps  --database=mysql --
 
 Directories and files are created under rails/src and Gemfile and Gemfile.lock files are updated.
 
-### 5. Delete a running container (sample\_app-docker\_db\_1).
+#### 5. Delete a running container (sample\_app-docker\_db\_1).
 
 ``` bash
 $ docker-compose down
@@ -70,13 +70,13 @@ Removing sample_app-docker_db_1 ... done
 Removing network sample_app-docker_default
 ```
 
-### 6. Building docker images.
+#### 6. Building docker images.
 
 ``` bash
 $ docker-compose build
 ```
 
-### 7. Change items of `username`, `password`, and `host` in `database.yml`
+#### 7. Change items of `username`, `password`, and `host` in `database.yml`
 
 ``` bash
 $ vi rails/src/config/database.yml
@@ -95,13 +95,13 @@ development:
 :
 ```
 
-### 8. Create and launch containers.
+#### 8. Create and launch containers.
 
 ``` bash
 $ docker-compose up
 ```
 
-### 9. open another terminal window and execute `rake db:create` in app container.
+#### 9. open another terminal window and execute `rake db:create` in app container.
 
 ``` bash
 $ cd ~/dev/sample_app-docker
@@ -110,9 +110,9 @@ Created database 'sample_app_development'
 Created database 'sample_app_test'
 ```
 
-### 10. Close this termnal window.
+#### 10. Close this termnal window.
 
-### 11. Stop containers by pressing Ctrl+C in termnal where containers are launched.
+#### 11. Stop containers by pressing Ctrl+C in termnal where containers are launched.
 
 ``` bash
 :
@@ -123,7 +123,7 @@ Stopping sample_app-docker_app_1 ... done
 Stopping sample_app-docker_db_1  ... done
 ```
 
-### 12. Modify puma.rb.
+#### 12. Modify puma.rb.
 ``` bash
 $ vi rails/src/config/puma.rb
 ```
@@ -139,7 +139,7 @@ bind "unix:///opt/sample_app/tmp/sockets/puma.sock"
 stdout_redirect "/opt/sample_app/log/puma.stdout.log",  "/opt/sample_app/log/puma.stderr.log", true
 ```
 
-### 13. Restarting containers.
+#### 13. Restarting containers.
 ``` bash
 $ docker-compose start
 Starting db  ... done
@@ -147,7 +147,7 @@ Starting app ... done
 Starting web ... done
 ```
 
-### 14. Try accessing the URL `http://localhost/` in a web browser.
+#### 14. Try accessing the URL `http://localhost/` in a web browser.
 ``` bash
 $  curl -I http://localhost/
 HTTP/1.1 200 OK
