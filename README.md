@@ -24,10 +24,14 @@ Usage
 HOSTSRCPATH=c:/Users/foo/devel
 ```
 
+In the above example, the PATH in Docker Desktop for Windows.
+
 #### 2. Change the following if you want to change the Rails project name (Application Directory name).
 
 ```bash
 foo@localhost:sample_app-docker$ grep -R -e 'sample_app[^-]' *
+```
+```
 docker-compose.yml:              target: /opt/sample_app/public
 docker-compose.yml:              target: /opt/sample_app/tmp
 docker-compose.yml:              target: /opt/sample_app/public
@@ -59,6 +63,11 @@ GRANT ALL PRIVILEGES ON *.* TO 'dbmaster'@'%';
 ``` bash
 $ docker-compose run --rm app rails new . --force --no-deps  --database=mysql --skip-coffee --skip-turbolinks --skip-sprockets --webpack
 ```
+
+Asset Pipline (Sporokets) seems to be out of date.
+We'll use Webpacker gem.
+Webpacker uses Yarn. You need to install Yarn beforehand (see `rails/Dockerfile`) .
+
 
 Directories and files are created under rails/src and Gemfile and Gemfile.lock files are updated.
 
@@ -101,7 +110,7 @@ development:
 $ docker-compose up
 ```
 
-#### 9. open another terminal window and execute `rake db:create` in app container.
+#### 9. Open another terminal window and execute `rake db:create` in app container.
 
 ``` bash
 $ cd ~/devel/sample_app-docker
