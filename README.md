@@ -38,7 +38,7 @@ nginx/nginx.conf:    server unix:///opt/sample_app/tmp/sockets/puma.sock;
 nginx/nginx.conf:    root /opt/sample_app/public;
 ```
 
-#### 3. Change the DB username(`dbmaster`) and root password.
+#### 3. Change the DB username (`dbmaster`) and root password.
 
 * `mariadb/sql/00_init.sql`
 ```console
@@ -46,7 +46,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'dbmaster'@'%';
 ```
 
 * `docker-compose.yml`
-``` yaml
+```console
 :
        environment:
             MYSQL_ROOT_PASSWORD: PASSWORD
@@ -58,7 +58,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'dbmaster'@'%';
 #### 4. Run the following command for create a Rails project and update Gemfile and Gemfile.lock.
 
 ```shell-session
-$ docker-compose run --rm app rails new . --force --no-deps  --database=mysql --skip-coffee --skip-turbolinks --skip-sprockets --webpack
+$ docker-compose run --rm app rails new . \
+--force --no-deps --database=mysql \
+--skip-turbolinks --skip-coffee --skip-sprockets --webpack
 ```
 
 Asset Pipline (Sporokets) seems to be out of date.
@@ -82,10 +84,9 @@ Removing network sample_app-docker_default
 $ docker-compose build
 ```
 
-#### 7. Change items of `username`, `password`, and `host` in `database.yml`
+#### 7. Change items of `username`, `password`, and `host` in `rails/src/config/database.yml`
 
-```shell-session
-$ vi rails/src/config/database.yml
+```console
 default: &default
   adapter: mysql2
   encoding: utf8
@@ -118,7 +119,7 @@ Created database 'sample_app_test'
 
 #### 11. Stop containers by pressing Ctrl+C in termnal where containers are launched.
 
-```console
+```shell-session
 :
 app_1  | Use Ctrl-C to stop
 ^CGracefully stopping... (press Ctrl+C again to force)
@@ -127,10 +128,7 @@ Stopping sample_app-docker_app_1 ... done
 Stopping sample_app-docker_db_1  ... done
 ```
 
-#### 12. Modify puma.rb.
-```shell-session
-$ vi rails/src/config/puma.rb
-```
+#### 12. Modify `rails/src/config/puma.rb`.
 
 Comment out the following line.
 ```console
@@ -144,6 +142,7 @@ stdout_redirect "/opt/sample_app/log/puma.stdout.log",  "/opt/sample_app/log/pum
 ```
 
 #### 13. Restarting containers.
+
 ```shell-session
 $ docker-compose start
 Starting db  ... done
@@ -152,6 +151,7 @@ Starting web ... done
 ```
 
 #### 14. Try accessing the URL `http://localhost/` in a web browser.
+
 ```shell-session
 $  curl -I http://localhost/
 HTTP/1.1 200 OK
