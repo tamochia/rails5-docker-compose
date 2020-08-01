@@ -70,12 +70,12 @@ Webpacker uses Yarn. You need to install Yarn beforehand (see `rails/Dockerfile`
 
 Directories and files are created under rails/src and Gemfile and Gemfile.lock files are updated.
 
-#### 5. Delete a running container (sample\_app-docker\_db\_1).
+#### 5. Delete a running container (rails5-docker-compose\_db\_1).
 
 ```shell-session
 $ docker-compose down
-Removing sample_app-docker_db_1 ... done
-Removing network sample_app-docker_default
+Removing rails5-docker-compose_db_1 ... done
+Removing network rails5-docker-compose_default
 ```
 
 #### 6. Building docker images.
@@ -109,7 +109,7 @@ $ docker-compose up
 #### 9. Open another terminal window and execute `rake db:create` in app container.
 
 ```shell-session
-$ cd ~/devel/sample_app-docker
+$ cd ~/devel/rails-docker-compose
 $ docker-compose exec app rake db:create
 Created database 'sample_app_development'
 Created database 'sample_app_test'
@@ -123,9 +123,9 @@ Created database 'sample_app_test'
 :
 app_1  | Use Ctrl-C to stop
 ^CGracefully stopping... (press Ctrl+C again to force)
-Stopping sample_app-docker_web_1 ... done
-Stopping sample_app-docker_app_1 ... done
-Stopping sample_app-docker_db_1  ... done
+Stopping rails5-docker-compose_web_1 ... done
+Stopping rails5-docker-compose_app_1 ... done
+Stopping rails5-docker-compose_db_1  ... done
 ```
 
 #### 12. Modify `rails/src/config/puma.rb`.
