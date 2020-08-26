@@ -5,7 +5,7 @@ services:
             context: ./mariadb
         volumes:
             - type: bind
-              source: ${HOSTSRCPATH}/sample_app-docker/mariadb/sql
+              source: ${HOSTSRCPATH}/rails5-docker-compose/mariadb/sql
               target: /docker-entrypoint-initdb.d
             - type: volume
               source: mariadb_data
@@ -22,7 +22,7 @@ services:
             context: ./rails
         volumes:
             - type: bind
-              source: ${HOSTSRCPATH}/sample_app-docker/rails/src
+              source: ${HOSTSRCPATH}/rails5-docker-compose/rails/src
               target: /opt/sample_app
             - type: volume
               source: bundle_data
