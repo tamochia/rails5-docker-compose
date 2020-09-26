@@ -21,14 +21,15 @@ Usage
 
 * `.env`
 ``` console
-HOSTSRCPATH=c:/Users/foo/devel
+HOSTSRCPATH=c:/Users/foo/devel/rails5-docker-compose
 ```
 In the above example, the PATH in Docker Desktop for Windows.
 
 #### 2. Change the following if you want to change the Rails project name (Application Directory name).
 
 ```shell-session
-[foo@localhost:rails5-docker-compose]$ grep -R -e 'sample_app[^-]' *
+[foo@localhost:rails5-docker-compose]$ grep -R -e 'sample_app' *
+docker-compose.yml:              target: /opt/sample_app
 docker-compose.yml:              target: /opt/sample_app/public
 docker-compose.yml:              target: /opt/sample_app/tmp
 docker-compose.yml:              target: /opt/sample_app/public
@@ -36,6 +37,7 @@ docker-compose.yml:              target: /opt/sample_app/tmp
 nginx/Dockerfile:ADD nginx.conf /etc/nginx/conf.d/sample_app.conf
 nginx/nginx.conf:    server unix:///opt/sample_app/tmp/sockets/puma.sock;
 nginx/nginx.conf:    root /opt/sample_app/public;
+rails/Dockerfile:ENV APP_ROOT /opt/sample_app
 ```
 
 #### 3. Change the DB username (`dbmaster`) and root password.
